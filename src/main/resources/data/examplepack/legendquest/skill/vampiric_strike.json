@@ -1,0 +1,21 @@
+{
+  "name": "Vampiric Strike",
+  "description": "Your blows sometimes drink. A quarter of your strikes steal life from the wound straight into your veins.",
+  "icon": "minecraft:ghast_tear",
+  "type": "triggered",
+  "cooldown": 5000,
+  "trigger": {
+    "on": "melee_hit",
+    "chance": 25.0
+  },
+  "effects": [
+    {
+      "type": "examplepack:lifesteal",
+      "amount": 4.0,
+      "leech": 0.75,
+      "target": {
+        "kind": "trigger"
+      }
+    }
+  ]
+}

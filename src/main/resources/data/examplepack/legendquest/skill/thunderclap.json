@@ -1,0 +1,22 @@
+{
+  "name": "Thunderclap",
+  "description": "Clap once. Everything within five blocks reconsiders its position \u2014 rapidly, and through the air.",
+  "icon": "minecraft:heart_of_the_sea",
+  "type": "active",
+  "cooldown": 15000,
+  "mana_cost": 12,
+  "effects": [
+    {
+      "type": "examplepack:shockwave",
+      "radius": 5.0,
+      "power": 1.4,
+      "lift": 0.6
+    },
+    {
+      "type": "legendquest:sound",
+      "sound": "minecraft:entity.generic.explode",
+      "volume": 0.8,
+      "pitch": 1.6
+    }
+  ]
+}

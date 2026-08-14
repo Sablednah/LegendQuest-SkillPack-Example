@@ -1,0 +1,28 @@
+{
+  "_comment": "Composition demo: pack effects (shockwave) mixing freely with core LegendQuest effects (lightning, sound, message) in one skill.",
+  "name": "Storm Entrance",
+  "description": "Arrive properly: a crack of (harmless) lightning, a shockwave, and everyone nearby suddenly somewhere else. First impressions matter.",
+  "icon": "minecraft:lightning_rod",
+  "type": "active",
+  "cooldown": 45000,
+  "mana_cost": 20,
+  "effects": [
+    {
+      "type": "legendquest:lightning",
+      "visual_only": true,
+      "target": {
+        "kind": "self"
+      }
+    },
+    {
+      "type": "examplepack:shockwave",
+      "radius": 6.0,
+      "power": 1.6,
+      "lift": 0.7
+    },
+    {
+      "type": "legendquest:message",
+      "text": "&5You have arrived. They noticed."
+    }
+  ]
+}

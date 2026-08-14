@@ -1,0 +1,20 @@
+{
+  "name": "Sixth Sense",
+  "description": "Close your eyes and count the heartbeats around you. All of them.",
+  "icon": "minecraft:ender_eye",
+  "type": "active",
+  "cooldown": 10000,
+  "mana_cost": 3,
+  "effects": [
+    {
+      "type": "examplepack:sense",
+      "radius": 24.0
+    },
+    {
+      "type": "legendquest:sound",
+      "sound": "minecraft:block.sculk_sensor.clicking",
+      "volume": 1.0,
+      "pitch": 0.7
+    }
+  ]
+}
