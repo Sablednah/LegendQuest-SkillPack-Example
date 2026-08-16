@@ -62,6 +62,21 @@ skills:
   examplepack:thunderclap: { level: 10, cost: 5 }
 ```
 
+## Trying them out
+
+`examples/stormcaller.yml` (also inside the built jar) is a complete test
+class that grants all four skills at level 0 for free. Copy it to
+`config/legendquest/classes/stormcaller.yml`, restart the server, pick the
+class, and every skill is on your bar immediately — no levelling, no skill
+points. It doubles as the short worked example of how a class grants
+skills: level gates, point costs and karma bands, with the realistic
+version of the same block commented at the bottom.
+
+Delete the file when you're done. Nothing breaks: at the next start
+LegendQuest finds the class missing, resets anyone still holding it to the
+default class and leaves their XP banked, so putting the file back restores
+the character.
+
 ## Building
 
 ```

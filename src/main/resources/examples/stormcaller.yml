@@ -1,0 +1,65 @@
+# Stormcaller — the test class for this skill pack.
+#
+# Drop this file in  config/legendquest/classes/stormcaller.yml  on the
+# server, restart, and pick the class: you get all four examplepack skills
+# at level 0 for nothing, which is exactly what you want for testing and
+# exactly what you don't want in a real game. Delete the file when you're
+# done — LegendQuest notices the class is gone at the next start, resets
+# anyone still holding it to the default class and keeps their XP.
+#
+# It is also the shortest complete answer to "how does a class use skills?".
+# Nothing here is special to skill packs: the `skills:` block takes any
+# skill id from any pack, yours or LegendQuest's, and the mod handles the
+# rest — buying, cooldowns, mana, the handbook entry, the hotkey.
+#
+# The same file works as JSON in a datapack at
+#   data/<pack>/legendquest/class/stormcaller.json
+# — same field names, same everything.
+
+name: Stormcaller
+chat_tag: "[St]"
+description: "A walking thunderstorm. Exists to prove third-party skill jars work."
+long_description: "Every skill this class knows comes from the examplepack jar, not LegendQuest itself: three custom effect types (shockwave, lifesteal, sense) plus one skill that mixes pack effects with core lightning/sound/message effects in a single JSON."
+size: 1.8
+
+# frequency 0 keeps it out of random NPC rolls — a test class shouldn't
+# start showing up on villagers.
+frequency: 0
+
+mana_bonus: 30.0
+mana_per_second: 2.0
+statmods:
+  con: 1
+  chr: 1
+
+skill_points: 12
+skill_points_per_level: 0.25
+
+# Grant a skill by id. Every field below is optional:
+#   level      character level before it can be bought/used  (default 0)
+#   cost       skill points to buy; 0 = free on reaching the level
+#   karma_min  / karma_max — only hold this skill inside a karma band
+#
+# Here everything is free from level 0 so you can test immediately.
+skills:
+  examplepack:vampiric_strike:
+    level: 0
+    cost: 0
+  examplepack:thunderclap:
+    level: 0
+    cost: 0
+  examplepack:sixth_sense:
+    level: 0
+    cost: 0
+  examplepack:storm_entrance:
+    level: 0
+    cost: 0
+
+# What a real class looks like instead — earn them, pay for them, and let
+# karma decide which half of the kit you can hold:
+#
+# skills:
+#   examplepack:sixth_sense:     { level: 1,  cost: 0 }
+#   examplepack:thunderclap:     { level: 10, cost: 3 }
+#   examplepack:storm_entrance:  { level: 25, cost: 5 }
+#   examplepack:vampiric_strike: { level: 15, cost: 5, karma_max: -20 }
