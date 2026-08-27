@@ -160,8 +160,9 @@ public final class ExampleEffects {
                 counts.merge(e.getType().getDescription().getString(), 1, Integer::sum);
             }
             if (counts.isEmpty()) {
-                ctx.caster().displayClientMessage(
-                        Component.literal("§7You sense nothing nearby. Suspicious."), false);
+                // 26.x split displayClientMessage in two: the boolean became the method.
+                ctx.caster().sendSystemMessage(
+                        Component.literal("§7You sense nothing nearby. Suspicious."));
                 return;
             }
             StringBuilder sb = new StringBuilder("§6You sense:§r");
@@ -169,7 +170,7 @@ public final class ExampleEffects {
                     .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                     .forEach(entry -> sb.append("\n §7-§f ").append(entry.getValue())
                             .append("× ").append(entry.getKey()));
-            ctx.caster().displayClientMessage(Component.literal(sb.toString()), false);
+            ctx.caster().sendSystemMessage(Component.literal(sb.toString()));
         }
     }
 
