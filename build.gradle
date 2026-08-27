@@ -45,10 +45,27 @@ dependencies {
     // switch, so a plain wildcard silently compiles the 1.21.11 branch against
     // whichever jar the last build happened to leave behind. It fails loudly
     // now if the right one is missing, which is the better failure.
-    implementation fileTree(dir: 'libs',
-            include: ["legendquest-*+mc${minecraft_version}.jar"])
-    implementation fileTree(dir: '../LegendQuest-ReForged/build/libs',
-            include: ["legendquest-*+mc${minecraft_version}.jar"])
+    implementation files(provider {
+        // Exactly ONE jar, chosen newest-first, because more than one can match.
+        // A build directory accumulates: legendquest-2.2.0+mc26.1.2.jar and
+        // legendquest-2.2.1+mc26.1.2.jar both satisfy the pattern, and handing
+        // javac both puts the older SkillEffect on the classpath first --
+        // which fails as "method does not override", pointing at your code
+        // rather than at the stale jar actually causing it.
+        def pattern = ~/legendquest-.*\+mc${minecraft_version}\.jar/
+        def candidates = [file('libs'), file('../LegendQuest-ReForged/build/libs')]
+                .findAll { it.isDirectory() }
+                .collectMany { (it.listFiles() ?: []) as List }
+                .findAll { it.name ==~ pattern }
+        if (candidates.isEmpty()) {
+            throw new GradleException(
+                "No LegendQuest jar for Minecraft ${minecraft_version}. Build the matching " +
+                "LegendQuest branch, or drop its jar in libs/.")
+        }
+        candidates.sort { -it.lastModified() }
+        logger.lifecycle("LegendQuest dependency: ${candidates.first().name}")
+        [candidates.first()]
+    })
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
