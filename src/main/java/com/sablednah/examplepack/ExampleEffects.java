@@ -68,6 +68,9 @@ public final class ExampleEffects {
 
         @Override public Identifier type() { return TYPE; }
 
+        /** Draining someone's life is unambiguously a fight. */
+        @Override public boolean hostile() { return true; }
+
         @Override
         public void apply(SkillContext ctx) {
             for (LivingEntity victim : target.resolveEntities(ctx)) {
@@ -102,6 +105,13 @@ public final class ExampleEffects {
                 .apply(i, Shockwave::new));
 
         @Override public Identifier type() { return TYPE; }
+
+        /**
+         * Knocking a crowd off their feet is an act of aggression, so the caster
+         * is marked as in combat on a server running Standards. hostile() defaults
+         * to false, so a pack declares it only where it is actually true.
+         */
+        @Override public boolean hostile() { return true; }
 
         @Override
         public void apply(SkillContext ctx) {

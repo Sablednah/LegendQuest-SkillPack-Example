@@ -3,7 +3,10 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.141'
 }
 
-version = mod_version
+// The jar carries the Minecraft version it was built against, matching
+// LegendQuest itself: this pack now ships one jar per supported version and
+// three files called examplepack-1.0.0.jar would be indistinguishable.
+version = "${mod_version}+mc${minecraft_version}"
 group = mod_group_id
 
 base { archivesName = mod_id }
@@ -31,9 +34,12 @@ neoForge {
 
 dependencies {
     // The whole trick: compile against the LegendQuest jar. In a published
-    // world this would be a maven coordinate; for the example it's the jar
-    // in libs/ (copy a current one from LegendQuest-ReForged/build/libs).
-    implementation files('libs/legendquest-2.0.0-alpha.1.jar')
+    // world this would be a maven coordinate; for the example it is whatever
+    // sits in libs/ — matched by pattern rather than by name, so each version
+    // branch just holds the LegendQuest jar built for ITS Minecraft version
+    // and this line never needs editing. Copy one from
+    // LegendQuest-ReForged/build/libs after building the matching branch.
+    implementation fileTree(dir: 'libs', include: ['legendquest-*.jar'])
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
